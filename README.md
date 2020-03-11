@@ -28,3 +28,7 @@ Make DO serve this project
 Expose DO serve to the world
 
     kubectl --context do-fra1-protsci-s1 expose deployment hello-world --type=LoadBalancer --name=hello-world
+
+Update kubernetes docker image
+
+    kubectl patch deployment web -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
