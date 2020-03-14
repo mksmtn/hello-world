@@ -3,7 +3,7 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
   def get(self):
-    self.write("Боже мой!")
+    self.write('Hello, world')
 
 
 def make_app():
@@ -12,7 +12,7 @@ def make_app():
   ])
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = make_app()
     app.listen(8080)
     tornado.ioloop.IOLoop.current().start()
