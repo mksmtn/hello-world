@@ -15,7 +15,7 @@ class MainHandler(tornado.web.RequestHandler):
       pass
     files = filter(isfile, dir_content)
     response = "\n".join(files)
-    if len(files) == 0:
+    if response == '':
       response = 'Empty'
     self.write(response)
 
