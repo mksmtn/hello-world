@@ -22,4 +22,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+        - name: environment
+          value: production
 
