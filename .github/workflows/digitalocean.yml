@@ -31,7 +31,10 @@ jobs:
         personalAccessToken: ${{ secrets.DO_ACCESS_TOKEN }}
         # The name of the DigitalOcean Kubernetes cluster that you plan to work with.
         clusterName: protsci-s1
-    
-    - name: DigitalOcean push
+
+    - name: Update cluster config
+      run: kubectl apply -f test.k8s.yaml
+
+    - name: Make cluster update if config not changed
       run: kubectl patch deployment hello-world -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
 
