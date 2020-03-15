@@ -10,7 +10,7 @@ class TestHelloApp(AsyncHTTPTestCase):
   def test_homepage(self):
     response = self.fetch('/')
     self.assertEqual(response.code, 200)
-    self.assertEqual(response.body.decode('utf-8'), 'Test: Hello, world')
+    self.assertEqual(response.body.decode('utf-8'), 'Empty')
 
 if __name__ == '__main__':
   main()
