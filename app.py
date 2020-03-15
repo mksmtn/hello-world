@@ -20,12 +20,15 @@ class MainHandler(tornado.web.RequestHandler):
     self.write(response)
 
   def post(self):
+    msg = 'Saved:\n'
     for field_name, files in self.request.files.items():
       for info in files:
         filename = sanitize_filename(info["filename"])
+        msg += filename
+        msg += '\n'
         with open(files_path + filename, 'w') as out:
           out.write(info["body"])
-    self.write('Ok')
+    self.write(msg)
 
 
 def make_app():
