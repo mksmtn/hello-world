@@ -8,8 +8,8 @@ files_path = '/data/'
 
 class MainHandler(tornado.web.RequestHandler):
   def get(self):
-    dir_content = []
     dir_content = listdir(files_path)
+    dir_content = map(lambda filename: files_path + filename, dir_content)
     files = filter(isfile, dir_content)
     response = "\n".join(files)
     if response == '':
