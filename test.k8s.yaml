@@ -1,25 +1,47 @@
 ---
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: hello-world
-    labels:
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: csi-pvc-test
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: do-block-storage
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+    build: "0.0.1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
       app: hello-world
-      build: "0.0.1"
-  spec:
-    replicas: 1
-    selector:
-      matchLabels:
+  template:
+    metadata:
+      labels:
         app: hello-world
-    template:
-      metadata:
-        labels:
-          app: hello-world
-      spec:
-        containers:
+    spec:
+      containers:
+      - name: hello-world
+        image: mksmtn/k8s-hello-world-test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
         - name: hello-world
-          image: mksmtn/k8s-hello-world-test
-          imagePullPolicy: Always
-          ports:
-          - containerPort: 8080
-  
+          mountPath: /data
+        env:
+        - name: environment
+          value: test
+      volumes:
+      - name: hello-world
+        persistentVolumeClaim:
+          claimName: csi-pvc-test
