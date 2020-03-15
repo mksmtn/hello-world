@@ -8,7 +8,11 @@ files_path = '/data/'
 
 class MainHandler(tornado.web.RequestHandler):
   def get(self):
-    dir_content = listdir(files_path)
+    dir_content = []
+    try:
+      dir_content = listdir(files_path)
+    except FileNotFoundError as e:
+      pass
     files = filter(isfile, dir_content)
     response = "\n".join(files)
     if len(files) == 0:
