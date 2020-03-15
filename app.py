@@ -26,7 +26,7 @@ class MainHandler(tornado.web.RequestHandler):
         filename = sanitize_filename(info["filename"])
         msg += filename
         msg += '\n'
-        with open(files_path + filename, 'w') as out:
+        with open(files_path + filename, 'wb') as out:
           out.write(info["body"])
     self.write(msg)
 
